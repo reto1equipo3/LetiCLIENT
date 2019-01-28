@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="gpPedidos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easyorderappclient.ui.controllers.PedidosDesktopFxmlController">
+   <children>
+      <Button fx:id="btnBuscar" layoutX="238.0" layoutY="143.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="74.0" text="Buscar" />
+      <ComboBox fx:id="ComboEstado" layoutX="198.0" layoutY="106.0" prefHeight="25.0" prefWidth="177.0" promptText="Seleccione un estado:" />
+      <Label layoutX="211.0" layoutY="71.0" prefHeight="19.0" prefWidth="101.0" text="Filtrar por estado:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tablaGestionPedidos" layoutX="91.0" layoutY="193.0" prefHeight="318.0" prefWidth="764.0">
+        <columns>
+          <TableColumn fx:id="tbCodigo" prefWidth="59.33331298828125" text="Código" />
+            <TableColumn fx:id="tbCliente" prefWidth="95.99998474121094" text="Cliente" />
+            <TableColumn fx:id="tbFechaTramitado" prefWidth="173.33334350585938" text="Fecha tramitado" />
+            <TableColumn fx:id="tbFechaPreparado" prefWidth="174.0" text="Fecha preparado" />
+            <TableColumn fx:id="tbFechaEntregado" prefWidth="173.33331298828125" text="Fecha entregado" />
+            <TableColumn fx:id="tbEstado" prefWidth="87.3333740234375" text="Estado" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnVer" layoutX="898.0" layoutY="332.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="82.0" text="Ver" />
+      <Button fx:id="btnEliminar" layoutX="898.0" layoutY="383.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="82.0" text="Eliminar" />
+      <ImageView fitHeight="91.0" fitWidth="238.0" layoutX="736.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/gestión-pedidos.png" />
+         </image>
+      </ImageView>
+      <MenuBar fx:id="menuBar" layoutY="1.0" prefHeight="25.0" prefWidth="277.0">
+        <menus>
+          <Menu fx:id="menuMenu" mnemonicParsing="false" text="Menu">
+               <items>
+                  <MenuItem fx:id="itemCerrarSesion" mnemonicParsing="false" text="Cerrar sesión" />
+               </items></Menu>
+          <Menu fx:id="menuPedidos" mnemonicParsing="false" text="Pedidos" />
+            <Menu fx:id="menuProductos" mnemonicParsing="false" text="Productos">
+               <items>
+                  <MenuItem fx:id="itemProductos" mnemonicParsing="false" text="Lista de productos" />
+               </items></Menu>
+            <Menu fx:id="menuEmpleados" mnemonicParsing="false" text="Empleados" />
+        </menus>
+      </MenuBar>
+      <DatePicker fx:id="datePicker" layoutX="462.0" layoutY="106.0" prefHeight="25.0" prefWidth="174.0" />
+      <Button fx:id="btnFiltrar" layoutX="518.0" layoutY="143.0" mnemonicParsing="false" text="Filtrar" />
+      <Label layoutX="469.0" layoutY="71.0" prefHeight="19.0" prefWidth="159.0" text="Filtrar por fecha tramitado:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

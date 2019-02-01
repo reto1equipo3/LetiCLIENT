@@ -6,9 +6,13 @@
 package easyorderappclient.businessLogic;
 
 /**
- *
+ * Exception thrown when a Login already exists.
  * @author Igor
  */
-class IdExistsException extends Exception {
+public class IdExistsException extends BusinessLogicException {
+
+    public IdExistsException(String msg) {
+        super(msg);
+    }
     
 }

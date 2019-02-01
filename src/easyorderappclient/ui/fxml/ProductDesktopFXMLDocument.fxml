@@ -4,6 +4,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -13,9 +16,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="GPProducto" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easyorderappclient.ui.controllers.ProductController">
+<Pane fx:id="GPProducto" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easyorderappclient.ui.controllers.ProductController">
    <children>
-      <GridPane layoutX="138.0" layoutY="61.0" prefHeight="142.0" prefWidth="715.0" style="-fx-border-color: BLACK;">
+      <GridPane layoutX="138.0" layoutY="91.0" prefHeight="142.0" prefWidth="715.0" style="-fx-border-color: BLACK;">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="71.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.60003662109375" minWidth="10.0" prefWidth="233.39999999999998" />
@@ -41,7 +44,12 @@
             </Label>
             <Label fx:id="lblPrecio" text="PRECIO:" GridPane.columnIndex="2" />
             <Label fx:id="lblStock" text="STOCK:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <TextField fx:id="textCodigo" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="1">
+            <TextField fx:id="textId" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="textNombre" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
@@ -51,18 +59,13 @@
                   <Insets top="10.0" />
                </opaqueInsets>
             </TextField>
-            <TextField fx:id="textNombre" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </TextField>
             <TextField fx:id="textStock" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Button fx:id="btnGuardar" mnemonicParsing="false" prefHeight="32.0" prefWidth="126.0" text="Guardar Producto" GridPane.columnIndex="4">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="btnBorrar" mnemonicParsing="false" prefHeight="32.0" prefWidth="126.0" text="Borrar Producto" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <Button fx:id="btnEliminar" mnemonicParsing="false" prefHeight="32.0" prefWidth="126.0" text="Eliminar Producto" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
@@ -74,22 +77,43 @@
             </Button>
          </children>
       </GridPane>
-      <Button fx:id="btnCancelar" layoutX="869.0" layoutY="112.0" mnemonicParsing="false" text="CANCELAR" />
-      <Label layoutX="138.0" layoutY="24.0" text="PRODUCTOS">
+      <Button fx:id="btnCancelar" layoutX="869.0" layoutY="150.0" mnemonicParsing="false" text="CANCELAR" />
+      <Label layoutX="138.0" layoutY="49.0" text="PRODUCTOS">
          <font>
             <Font name="Cambria Bold Italic" size="23.0" />
          </font>
       </Label>
-      <Button fx:id="btnFiltrar" layoutX="576.0" layoutY="240.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="84.0" text="FILTRAR" />
-      <ComboBox fx:id="cbFiltrar" layoutX="138.0" layoutY="241.0" prefWidth="150.0" style="-fx-border-color: black;" />
-      <TableView fx:id="tbProductos" layoutX="138.0" layoutY="305.0" prefHeight="200.0" prefWidth="715.0" style="-fx-border-color: BLACK;">
+      <ComboBox fx:id="cbFiltrar" layoutX="138.0" layoutY="255.0" prefHeight="25.0" prefWidth="195.0" promptText="Elija una opción" />
+      <TextField fx:id="textFiltrar" layoutX="138.0" layoutY="296.0" prefHeight="25.0" prefWidth="430.0" />
+      <Button fx:id="btnFiltrar" layoutX="594.0" layoutY="296.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Filtrar" />
+      <TableView fx:id="tbProductos" layoutX="138.0" layoutY="338.0" prefHeight="200.0" prefWidth="745.0" style="-fx-border-color: BLACK;">
         <columns>
           <TableColumn fx:id="colCodigo" prefWidth="75.0" text="CÓDIGO" />
           <TableColumn fx:id="colNombre" prefWidth="509.59996032714844" text="NOMBRE PRODUCTO" />
           <TableColumn fx:id="colPrecioUnidad" prefWidth="63.20001220703125" text="PRECIO" />
-          <TableColumn fx:id="colStock" prefWidth="67.199951171875" text="STOCK" />
+          <TableColumn fx:id="colStock" prefWidth="99.33331298828125" text="STOCK" />
         </columns>
       </TableView>
-      <TextField fx:id="textFiltrar" layoutX="300.0" layoutY="243.0" prefHeight="25.0" prefWidth="268.0" />
+      <Button fx:id="btnReport" layoutX="906.0" layoutY="426.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Generar Report" />
+      <MenuBar fx:id="menuBar" layoutY="1.0" prefHeight="25.0" prefWidth="195.0">
+         <menus>
+            <Menu fx:id="menuMenu" mnemonicParsing="false" text="Menu">
+               <items>
+                  <MenuItem fx:id="itemMiPerfil" mnemonicParsing="false" text="Mi Perfil" />
+                  <MenuItem fx:id="itemFacturas" mnemonicParsing="false" text="Facturas FTP" />
+                  <MenuItem fx:id="itemCerrarSesion" mnemonicParsing="false" text="Cerrar sesión" />
+               </items>
+            </Menu>
+            <Menu fx:id="menuPedidos" mnemonicParsing="false" text="Pedidos">
+               <items>
+                  <MenuItem fx:id="itemPedidos" mnemonicParsing="false" text="Lista de Pedidos" />
+               </items></Menu>
+            <Menu fx:id="menuProductos" mnemonicParsing="false" text="Productos">
+               <items>
+                  <MenuItem fx:id="itemProductos" mnemonicParsing="false" text="Lista de productos" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
    </children>
 </Pane>

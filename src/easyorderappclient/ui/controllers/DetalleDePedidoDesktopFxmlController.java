@@ -12,6 +12,7 @@ import easyorderappclient.transferObjects.Pedido;
 import easyorderappclient.transferObjects.Producto;
 import easyorderappclient.transferObjects.ProductoPedido;
 import static easyorderappclient.ui.controllers.GenericController.LOGGER;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -38,6 +39,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 /**
  * FXML Controller class
@@ -66,11 +70,9 @@ public class DetalleDePedidoDesktopFxmlController extends GenericController {
     private TableColumn tbCantidad;
     @FXML
     private TableColumn tbPrecio;
-
     @FXML
     private Button btnAtras;
-    @FXML
-    private Button btnGenerarFactura;
+   
     @FXML
     private Label lblIdCliente;
     @FXML
@@ -104,10 +106,12 @@ public class DetalleDePedidoDesktopFxmlController extends GenericController {
         this.cliente = cliente;
     }
 
+    
+    
     /**
      * Method for initializing DetalleDePedido Stage.
-     *
      * @param root The Parent object representing root node of view graph.
+     * @throws BusinessLogicException 
      */
     public void initStage(Parent root) throws BusinessLogicException {
 
@@ -131,8 +135,7 @@ public class DetalleDePedidoDesktopFxmlController extends GenericController {
         lblHora.textProperty().addListener(this::handleTextChanged);
         lblCodigoPostal.textProperty().addListener(this::handleTextChanged);
         //Lo que hacen los botones
-        btnAtras.setOnAction(this::handleVolverAtras);
-        btnGenerarFactura.setOnAction(this::handleGenerarFactura);
+        btnAtras.setOnAction(this::handleVolverAtras);      
 
         //Set factories for cell values in pedido table columns.
         //tbIdProducto.setCellValueFactory(new PropertyValueFactory<Producto, Integer>("producto"));
@@ -386,10 +389,7 @@ public class DetalleDePedidoDesktopFxmlController extends GenericController {
         }
 
     }
-
-    @FXML
-    public void handleGenerarFactura(ActionEvent ev) {
-    }
+   
    /**
      * Text change event handler
      * @param observable the property being observed: TextProperty of TextField.

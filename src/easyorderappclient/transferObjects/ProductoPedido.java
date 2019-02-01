@@ -32,7 +32,7 @@ public class ProductoPedido implements Serializable {
         // this.producto= new SimpleObjectProperty<>();
         this.cantidad = new SimpleIntegerProperty();
         this.precio = new SimpleDoubleProperty();
-        this.setPrecio(getCantidad() * this.getProducto().getPrecioUnidad());
+       this.setPrecio(getCantidad() * this.getProducto().getPrecioUnidad());
     }
 
     //Getters and setters
@@ -51,7 +51,7 @@ public class ProductoPedido implements Serializable {
 
     public void setCantidad(Integer cantidad) {
         this.cantidad.set(cantidad);
-        this.setPrecio(cantidad * this.getProducto().getPrecioUnidad());
+       this.setPrecio(cantidad * this.getProducto().getPrecioUnidad());
 
     }
 

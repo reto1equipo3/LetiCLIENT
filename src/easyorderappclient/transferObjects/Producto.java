@@ -5,96 +5,79 @@
  */
 package easyorderappclient.transferObjects;
 
+import easyorderappclient.transferObjects.ProductoPedido;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ *Data Transfer Object used in UI and client side for representing Product entity.
+ * It is also used as data model for a TableView in the UI
  * @author Igor
  */
-
-@XmlRootElement
-public class Producto implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-  
-    private Integer id;
-    private String nombre;
-    private Integer stock;
-    //private Double precioUnidad;
-    private Double precioUnidad;  
+@XmlRootElement(name="producto")
+public class Producto implements Serializable{
+    private final SimpleIntegerProperty id;
+    private final SimpleStringProperty nombre;
+    private final SimpleDoubleProperty precioUnidad;
+    private final SimpleDoubleProperty stock;
     private List<ProductoPedido> pedidos;
     
-    
-        //Constructor
-    public Producto() {
-        this.id = new Integer(0);
-        this.nombre = new String("");
-        this.stock = new Integer(0);
-        this.precioUnidad = new Double(0.0);
+    public Producto(){
+        this.id=new SimpleIntegerProperty(0);
+        this.nombre=new SimpleStringProperty("");
+        this.precioUnidad=new SimpleDoubleProperty(0.0);
+        this.stock=new SimpleDoubleProperty(0.0);
         this.pedidos = new ArrayList<ProductoPedido>();
     }
-     
+   
+    public Producto(Integer id,
+                    String nombre,
+                    double precioUnidad,
+                    double stock){
+        this.id=new SimpleIntegerProperty(id);
+        this.nombre=new SimpleStringProperty(nombre);
+        this.precioUnidad=new SimpleDoubleProperty(precioUnidad);
+        this.stock=new SimpleDoubleProperty(stock);
+//        this.pedidos = new ArrayList<ProductoPedido>(pedidos);
+    }
     
-    
-    //Getters and setters
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public Integer getId(){
+        return this.id.get();
     }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
-
-   /* public void setPrecioUnidad(Double precioUnidad) {
-        this.precioUnidad = precioUnidad;
-    }
-
-      public Double getPrecioUnidad() {
-        return precioUnidad;
-    }
-   */
-  /*  public Double getPrecioUnidad(){
-    return this.precioUnidad.get();
-    }
-    public void setPrecioUnidad(Double precio){
-    this.precioUnidad.set(precio);
-    }*/
-
-    public Double getPrecioUnidad() {
-        return precioUnidad;
-    }
-
-    public void setPrecioUnidad(Double precioUnidad) {
-        this.precioUnidad = precioUnidad;
+    public void setId(Integer id){
+        this.id.set(id);
     }
     
     
-    public String getNombre() {
-        return nombre;
+    public String getNombre(){
+        return this.nombre.get();
     }
-
-    public Integer getStock() {
-        return stock;
+    public void setNombre(String nombre){
+        this.nombre.set(nombre);
     }
-
-  
-
-    public Integer getId() {
-        return id;
+    
+    
+    public Double getPrecioUnidad(){
+        return this.precioUnidad.get();
     }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPrecioUnidad(Double precioUnidad){
+        this.precioUnidad.set(precioUnidad);
     }
-
-
+    
+    
+    public double getStock(){
+        return this.stock.get();
+    }
+    public void setStock(double stock){
+        this.stock.set((int) stock);
+    }
+    
     public List<ProductoPedido> getProductosPedido() {
         return pedidos;
     }
@@ -102,19 +85,10 @@ public class Producto implements Serializable {
     public void setProductosPedido(List<ProductoPedido> pedidos) {
         this.pedidos = pedidos;
     }
-
     
-    
-   //Metodoak
-    
-    
-       @Override
+    @Override
     public String toString(){
   
-    return nombre;
-    
-    //Como pongo dos variables? 
-    
+    return nombre.get();
     }
-    
 }

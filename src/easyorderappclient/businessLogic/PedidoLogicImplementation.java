@@ -121,12 +121,13 @@ public class PedidoLogicImplementation implements PedidoLogic {
         }
     }
 
+    
     /**
      * This method checks if a pedido's id already exists, throwing an Exception 
      * if that's the case.
      * @param id
-     * @throws BusinessLogicException
      * @throws IdPedidoExistsException The Exception thrown in case login already exists
+     * @throws BusinessLogicException 
      */
     @Override
     public void isIdPedidoExisting(Integer id) throws IdPedidoExistsException, BusinessLogicException {

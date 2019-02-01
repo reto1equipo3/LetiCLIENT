@@ -5,8 +5,11 @@
  */
 package easyorderappclient.ui.controllers;
 
+import easyorderappclient.businessLogic.EmpleadoLogic;
+import easyorderappclient.businessLogic.FTPLogic;
 import easyorderappclient.businessLogic.PedidoLogic;
 import easyorderappclient.businessLogic.ProductsManager;
+import easyorderappclient.transferObjects.Empleado;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -26,14 +29,55 @@ public class GenericController {
      * Maximum text fields length.
      */
     protected final int MAX_LENGTH=255;
+    
+    /**
+	 * Maximum length of fullname
+	 */
+	protected final int MAX_LENGTH_FULLNAME = 50;
+	/**
+	 * Maximum length of email
+	 */
+	protected final int MAX_LENGTH_EMAIL = 50;
+	/**
+	 * Maximum length of login
+	 */
+	protected final int MAX_LENGTH_LOGIN = 20;
+	/**
+	 * Maximum length of password
+	 */
+	protected final int MAX_LENGTH_PASSWORD = 10;
+	/**
+	 * Min length of password
+	 */
+	protected final int MIN_LENGTH_PASSWORD = 6;
+    
+    
+    
+    
+    
+    
+    
     /**
      * The business logic object containing all business methods.
      */
     protected PedidoLogic pedidoLogic;
     protected ProductsManager productsManager;
+    protected FTPLogic ftpLogic;
+    
+    
     /**
      * Sets the business logic object to be used by this UI controller. 
-     * @param pedidoLogic An object implementing {@link UsersManager} interface.
+     * @param ftpLogic An object implementing {@link FTPLogic} interface.
+     */
+    public void setFTPLogic(FTPLogic ftpLogic){
+        this.ftpLogic=ftpLogic;
+    }
+    
+    
+    
+    /**
+     * Sets the business logic object to be used by this UI controller. 
+     * @param pedidoLogic An object implementing {@link PedidoLogic} interface.
      */
     public void setPedidoLogic(PedidoLogic pedidoLogic){
         this.pedidoLogic=pedidoLogic;
@@ -41,16 +85,11 @@ public class GenericController {
     
         /**
      * Sets the business logic object to be used by this UI controller. 
-     * @param productManager An object implementing {@link UsersManager} interface.
+     * @param productsManager An object implementing {@link ProductsManager} interface.
      */
     public void setProductManager(ProductsManager productsManager){
         this.productsManager=productsManager;
     }
-    
-    
-    
-    
-    
     
     /**
      * The Stage object associated to the Scene controlled by this controller.
@@ -82,7 +121,35 @@ public class GenericController {
         alert.showAndWait();
         
     }
-    
+    /**
+	 * Business empleadoEmpleadoLogic object containing all
+	 * empleadoEmpleadoLogic methods.
+	 */
+	protected EmpleadoLogic empleadoLogic;
+
+	/**
+	 * Sets the business empleadoEmpleadoLogic object to be used by this UI
+	 * controller.
+	 *
+	 * @param empleadoLogic Empleado logic
+	 */
+	public void setEmpleadoLogic(EmpleadoLogic empleadoLogic) {
+		this.empleadoLogic = empleadoLogic;
+	}
+
+	/**
+	 * Empleado object
+	 */
+	protected Empleado empleado;
+
+	/**
+	 * Sets the employee
+	 *
+	 * @param empleado The employee
+	 */
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
+	}
     
     
 }

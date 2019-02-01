@@ -118,7 +118,6 @@
          </font>
       </Label>
       <Button fx:id="btnAtras" layoutX="951.0" layoutY="527.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Atrás" />
-      <Button fx:id="btnGenerarFactura" layoutX="853.0" layoutY="420.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="112.0" text="Generar factura" />
       <ImageView fitHeight="109.0" fitWidth="105.0" layoutX="872.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/encargo_generico.png" />

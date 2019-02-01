@@ -33,25 +33,28 @@
             <TableColumn fx:id="tbEstado" prefWidth="87.3333740234375" text="Estado" />
         </columns>
       </TableView>
-      <Button fx:id="btnVer" layoutX="898.0" layoutY="332.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="82.0" text="Ver" />
-      <Button fx:id="btnEliminar" layoutX="898.0" layoutY="383.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="82.0" text="Eliminar" />
-      <ImageView fitHeight="91.0" fitWidth="238.0" layoutX="736.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+      <Button fx:id="btnVer" layoutX="901.0" layoutY="352.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="82.0" text="Ver" />
+      <ImageView fitHeight="91.0" fitWidth="238.0" layoutX="754.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/gestión-pedidos.png" />
          </image>
       </ImageView>
-      <MenuBar fx:id="menuBar" layoutY="1.0" prefHeight="25.0" prefWidth="277.0">
+      <MenuBar fx:id="menuBar" layoutY="1.0" prefHeight="25.0" prefWidth="202.0">
         <menus>
           <Menu fx:id="menuMenu" mnemonicParsing="false" text="Menu">
                <items>
+                  <MenuItem fx:id="itemMiPerfil" mnemonicParsing="false" text="Mi Perfil" />
+                  <MenuItem fx:id="itemFacturas" mnemonicParsing="false" text="Facturas FTP" />
                   <MenuItem fx:id="itemCerrarSesion" mnemonicParsing="false" text="Cerrar sesión" />
                </items></Menu>
-          <Menu fx:id="menuPedidos" mnemonicParsing="false" text="Pedidos" />
+          <Menu fx:id="menuPedidos" mnemonicParsing="false" text="Pedidos">
+               <items>
+                  <MenuItem fx:id="itemPedidos" mnemonicParsing="false" text="Lista de Pedidos" />
+               </items></Menu>
             <Menu fx:id="menuProductos" mnemonicParsing="false" text="Productos">
                <items>
                   <MenuItem fx:id="itemProductos" mnemonicParsing="false" text="Lista de productos" />
                </items></Menu>
-            <Menu fx:id="menuEmpleados" mnemonicParsing="false" text="Empleados" />
         </menus>
       </MenuBar>
       <DatePicker fx:id="datePicker" layoutX="462.0" layoutY="106.0" prefHeight="25.0" prefWidth="174.0" />
@@ -61,5 +64,6 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
+      <Button fx:id="btnGenerarInforme" layoutX="874.0" layoutY="418.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="135.0" text="Generar informe" />
    </children>
 </AnchorPane>

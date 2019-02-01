@@ -10,6 +10,14 @@ package easyorderappclient.businessLogic;
  * @author Leticia Garcia
  */
 public class BusinessLogicException extends Exception {
+    
+    /**
+	 * Creates a new instance of <code>BusinessLogicException</code> without
+	 * detail message.
+	 */
+	public BusinessLogicException() {
+	}
+        
     public BusinessLogicException(String msg){
         super(msg);
     }

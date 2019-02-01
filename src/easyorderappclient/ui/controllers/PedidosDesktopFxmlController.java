@@ -6,24 +6,27 @@
 package easyorderappclient.ui.controllers;
 
 import easyorderappclient.businessLogic.BusinessLogicException;
+import easyorderappclient.businessLogic.EmpleadoLogicFactory;
+import easyorderappclient.businessLogic.FTPLogicFactory;
+import easyorderappclient.businessLogic.ProductsManagerFactory;
 import easyorderappclient.transferObjects.Cliente;
 import easyorderappclient.transferObjects.EstadoPedido;
 import easyorderappclient.transferObjects.Pedido;
 import static easyorderappclient.ui.controllers.GenericController.LOGGER;
+import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.Date;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,7 +38,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -47,6 +49,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  * FXML Controller class for pedidos view.
@@ -59,12 +68,6 @@ public class PedidosDesktopFxmlController extends GenericController {
 
     private Pedido pedido;
     private Cliente cliente;
-
-    @FXML
-    private DatePicker DateFechaPreparadoDesde;
-
-    @FXML
-    private DatePicker DateFechaPreparadoHasta;
 
     @FXML
     private ComboBox ComboEstado;
@@ -87,8 +90,8 @@ public class PedidosDesktopFxmlController extends GenericController {
 
     @FXML
     private Button btnVer;
-    @FXML
-    private Button btnEliminar;
+    /*  @FXML
+    private Button btnEliminar;*/
     @FXML
     private Button btnBuscar;
 
@@ -102,16 +105,21 @@ public class PedidosDesktopFxmlController extends GenericController {
     @FXML
     private Menu menuProductos;
     @FXML
-    private Menu menuEmpleados;
+    private MenuItem itemMiPerfil;
     @FXML
     private MenuItem itemProductos;
-
     @FXML
     private MenuItem itemCerrarSesion;
+    @FXML
+    private MenuItem itemFacturas;
     @FXML
     private DatePicker datePicker;
     @FXML
     private Button btnFiltrar;
+    @FXML
+    private Button btnGenerarInforme;
+    @FXML
+    private Button btnEliminar;
 
     /**
      * Pedido's table data model.
@@ -145,20 +153,21 @@ public class PedidosDesktopFxmlController extends GenericController {
             //Para que la ventana no sea redimensionable
             stage.setResizable(false);
             //Menu Pedidos
-            // menuPedidos.setOnAction(this::pedidosWindow);
+            // itemPedidos.setOnAction(this::pedidosWindow);
             //Menu Productos
             itemProductos.setOnAction(this::productosWindow);
             //Menu Empleados
-            //menuEmpleados.setOnAction(this::empleadosWindow);
+            itemMiPerfil.setOnAction(this::empleadosWindow);
             //Menu item cerrar sesion
             itemCerrarSesion.setOnAction(this::cerrarSesion);
+            //Menu item para facturas
+            itemFacturas.setOnAction(this::facturasWindow);
 
             //Lo que hacen los botones
             btnBuscar.setOnAction(this::buscarBoton);
 
             btnVer.setOnAction(this::handleVerAction);
 
-            btnEliminar.setOnAction(this::handleEliminarAction);
             btnFiltrar.setOnAction(this::handleFiltrarAction);
             //Datepicker
             datePicker.setOnAction(this::handleDatePickerAction);
@@ -173,7 +182,8 @@ public class PedidosDesktopFxmlController extends GenericController {
             ComboEstado.setItems(estadoNames);
             //Seleccionar un estado por defecto
             ComboEstado.getSelectionModel().select("  ");
-
+            //Informe
+            btnGenerarInforme.setOnAction(this::handleGenerarInforme);
             //Set factories for cell values in pedido table columns.
             tbCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
             tbCliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
@@ -233,8 +243,8 @@ public class PedidosDesktopFxmlController extends GenericController {
         btnBuscar.setMnemonicParsing(true);
         btnBuscar.setText("_Buscar");
 
-        btnEliminar.setDisable(true);
-        btnEliminar.setTooltip(new Tooltip("Seleccione una fila para eliminar un pedido."));
+        //btnEliminar.setDisable(true);
+        //btnEliminar.setTooltip(new Tooltip("Seleccione una fila para eliminar un pedido."));
         btnVer.setDisable(true);
         btnVer.setTooltip(new Tooltip("Seleccione una fila para ver detalles del pedido."));
         btnVer.setMnemonicParsing(true);
@@ -243,6 +253,7 @@ public class PedidosDesktopFxmlController extends GenericController {
         btnFiltrar.setDisable(true);
         btnFiltrar.setTooltip(new Tooltip("Seleccione una fecha para filtrar por fecha tramitado."));
         datePicker.setEditable(false);
+
     }
 
     /**
@@ -260,14 +271,14 @@ public class PedidosDesktopFxmlController extends GenericController {
             //Se tiene que habilitar el boton VER           
             btnVer.setDisable(false);
             //Se tiene que habilitar el boton ELIMINAR        
-            btnEliminar.setDisable(false);
+            //btnEliminar.setDisable(false);
 
         }
         if (tablaGestionPedidos.getSelectionModel().getSelectedItem() == null) {
             //Se tiene que deshabilitar el boton VER           
             btnVer.setDisable(true);
             //Se tiene que deshabilitar el boton ELIMINAR        
-            btnEliminar.setDisable(true);
+            //btnEliminar.setDisable(true);
         }
 
     }
@@ -276,7 +287,7 @@ public class PedidosDesktopFxmlController extends GenericController {
      * Action event handler for ver button. Metodo para ir a la ventana de
      * detalles del pedido
      *
-     * @param event The ActionEvent object for the event.
+     * @param ev The ActionEvent object for the event.
      */
     @FXML
     public void handleVerAction(ActionEvent ev) {
@@ -319,7 +330,7 @@ public class PedidosDesktopFxmlController extends GenericController {
      *
      * @param ev The ActionEvent object for the event.
      */
-    public void handleEliminarAction(ActionEvent ev) {
+    /* public void handleEliminarAction(ActionEvent ev) {
 
         Alert alert = null;
         try {
@@ -355,7 +366,7 @@ public class PedidosDesktopFxmlController extends GenericController {
 
         }
     }
-
+     */
     /**
      * Action event handler for buscar button.
      *
@@ -398,24 +409,32 @@ public class PedidosDesktopFxmlController extends GenericController {
         tablaGestionPedidos.setItems(pedidosData);
 
     }
-     /**
-     * Action event handler for datepicker. Para habilitar el
-     * button de filtrar
+
+    /**
+     * Action event handler for datepicker. Para habilitar el button de filtrar
      *
-     * @param event The ActionEvent object for the event.
+     * @param ev The ActionEvent object for the event.
      */
     public void handleDatePickerAction(ActionEvent ev) {
-      
+
         btnFiltrar.setDisable(false);
     }
-     /**
-     * Action event handler for filtrar button. Metodo para filtrar por fecha tramitado
+
+    /**
+     * Action event handler for filtrar button. Metodo para filtrar por fecha
+     * tramitado
      *
-     * @param event The ActionEvent object for the event.
+     * @param ev The ActionEvent object for the event.
      */
     public void handleFiltrarAction(ActionEvent ev) {
-
         LocalDate dateDelPicker = datePicker.getValue();
+
+        try { //TODOS
+            pedidosData = FXCollections.observableArrayList(pedidoLogic.buscarTodosLosPedidos());
+            tablaGestionPedidos.setItems(pedidosData);
+        } catch (BusinessLogicException ex) {
+            Logger.getLogger(PedidosDesktopFxmlController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         if (dateDelPicker.isEqual(dateDelPicker)) {
 
@@ -426,11 +445,13 @@ public class PedidosDesktopFxmlController extends GenericController {
 
                 if (!tramitado.equals(dateDelPicker)) {
                     iterator.remove();
+
                 }
-                    datePicker.getEditor().clear();
-                    //tablaGestionPedidos.setItems(pedidosData);
-                    //tablaGestionPedidos.refresh();
+                datePicker.getEditor().clear();
+
+                //tablaGestionPedidos.refresh();
             }
+
         }
 
     }
@@ -446,7 +467,51 @@ public class PedidosDesktopFxmlController extends GenericController {
 
     }
 
-    /* public void pedidosWindow(ActionEvent ev) {
+    /**
+     * Action event handler for Generar Informe button. It shows a JFrame
+     * containing a report. This JFrame allows to print the report.
+     *
+     * @param ev The ActionEvent object for the event.
+     */
+    @FXML
+    public void handleGenerarInforme(ActionEvent ev) {
+
+        try {
+            JasperReport report
+                    = JasperCompileManager.compileReport(getClass()
+                            .getResourceAsStream("/easyorderappclient/ui/report/PedidoReport.jrxml"));
+            //Data for the report: a collection of UserBean passed as a JRDataSource 
+            //implementation 
+            JRBeanCollectionDataSource dataItems
+                    = new JRBeanCollectionDataSource((Collection<Pedido>) this.tablaGestionPedidos.getItems());
+            //Map of parameter to be passed to the report
+            Map<String, Object> parameters = new HashMap<>();
+            //Fill report with data
+            JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, dataItems);
+            //Create and show the report window. The second parameter false value makes 
+            //report window not to close app.
+            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+            jasperViewer.setVisible(true);
+            // jasperViewer.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        } catch (JRException ex) {
+            //If there is an error show message and
+            //log it.
+            showErrorAlert("Error al imprimir:\n"
+                    + ex.getMessage());
+            LOGGER.log(Level.SEVERE,
+                    "UI GestionPedidos: Error printing report: {0}",
+                    ex.getMessage());
+        }
+
+    }
+
+    /**
+     * Para ir desde el menu, a la view de Pedidos.
+     *
+     * @param ev The ActionEvent object for the event.
+     */
+    /*
+    public void pedidosWindow(ActionEvent ev) {
          LOGGER.info("ClickOn Pedidos Menu");
          try{
           //Load node graph from fxml file
@@ -456,6 +521,7 @@ public class PedidosDesktopFxmlController extends GenericController {
                     //Get controller for graph 
                     PedidosDesktopFxmlController controller
                             = ((PedidosDesktopFxmlController) loader.getController());
+                      pedidoLogic= PedidoLogicFactory.createPedidoLogic("REST_WEB_CLIENT");      
                     controller.setPedidoLogic(pedidoLogic);
                   
                     //Initializes stage
@@ -470,7 +536,41 @@ public class PedidosDesktopFxmlController extends GenericController {
      
         
      
-     }*/
+     }
+    
+    
+    
+     */
+    /**
+     * Para ir desde el menu, a la view de datos del perfil de empleado.
+     *
+     * @param ev The ActionEvent object for the event.
+     */
+    public void empleadosWindow(ActionEvent ev) {
+        LOGGER.info("ClickOn Empleado datos Menu");
+        try {
+            //Load node graph from fxml file
+            FXMLLoader loader
+                    = new FXMLLoader(getClass().getResource("/easyorderappclient/ui/fxml/EmpleadoDesktopFXMLDocument.fxml"));
+            Parent root = (Parent) loader.load();
+            //Get controller for graph 
+            EmpleadoDesktopFxmlController controller
+                    = ((EmpleadoDesktopFxmlController) loader.getController());
+            empleadoLogic = EmpleadoLogicFactory.createEmpleadoLogicImplementation();
+            controller.setEmpleadoLogic(empleadoLogic);
+            controller.setEmpleado(empleado);
+
+            //Initializes stage
+            controller.initStage(root);
+            //hides UserView stage
+            stage.hide();
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE,
+                    "UI Empleado View: Error opening Empleado window: {0}",
+                    ex.getMessage());
+        }
+    }
+
     /**
      * Para ir desde el menu, a la view de Productos.
      *
@@ -481,12 +581,15 @@ public class PedidosDesktopFxmlController extends GenericController {
         try {
             //Load node graph from fxml file
             FXMLLoader loader
-                    = new FXMLLoader(getClass().getResource("/easyorderappclient/ui/fxml/Product.fxml"));
+                    = new FXMLLoader(getClass().getResource("/easyorderappclient/ui/fxml/ProductDesktopFXMLDocument.fxml"));
             Parent root = (Parent) loader.load();
             //Get controller for graph 
             ProductController controller
                     = ((ProductController) loader.getController());
+            productsManager = ProductsManagerFactory.createProductsManager("REST_WEB_CLIENT");
+
             controller.setProductManager(productsManager);
+            controller.setEmpleado(empleado);
 
             //Initializes stage
             controller.initStage(root);
@@ -494,7 +597,37 @@ public class PedidosDesktopFxmlController extends GenericController {
             stage.hide();
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE,
-                    "UI DetallesPedido View: Error opening Productos window: {0}",
+                    "UI DetallesProductos View: Error opening Productos window: {0}",
+                    ex.getMessage());
+        }
+    }
+
+    /**
+     * Action event handler for para ir a Facturas.
+     *
+     * @param ev The ActionEvent object for the event.
+     */
+    public void facturasWindow(ActionEvent ev) {
+        LOGGER.info("ClickOn Productos Menu");
+        try {
+            //Load node graph from fxml file
+            FXMLLoader loader
+                    = new FXMLLoader(getClass().getResource("/easyorderappclient/ui/fxml/FacturasDesktopFXMLDocument.fxml"));
+            Parent root = (Parent) loader.load();
+            //Get controller for graph 
+            FacturasDesktopFxmlController controller
+                    = ((FacturasDesktopFxmlController) loader.getController());
+            ftpLogic = FTPLogicFactory.createFTPLogicImplementation();
+            controller.setFTPLogic(ftpLogic);
+            controller.setEmpleado(empleado);
+
+            //Initializes stage
+            controller.initStage(root);
+            //hides UserView stage
+            stage.hide();
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE,
+                    "UI DetallesFactura View: Error opening Facturas window: {0}",
                     ex.getMessage());
         }
     }
@@ -516,9 +649,27 @@ public class PedidosDesktopFxmlController extends GenericController {
 
         if (result.get() == ButtonType.OK) {
 
-            //CONTROLADOR DE INICIO SESION
-        }
+            // Load node graph from fxml file
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/easyorderappclient/ui/fxml/SignInDesktopFXMLDocument.fxml"));
+                Parent root = (Parent) loader.load();
+                // Get controller for graph
+                SignInDesktopFxmlController controller = ((SignInDesktopFxmlController) loader.getController());
+                empleadoLogic = EmpleadoLogicFactory.createEmpleadoLogicImplementation();
+                controller.setEmpleadoLogic(empleadoLogic);
+                // Initialize stage
+                controller.initStage(root);
+                //hides UserView stage
+                stage.hide();
+                stage.hide();
+            } catch (IOException ex) {
+                LOGGER.log(Level.SEVERE,
+                        "UI Empleado View: Error cerrando sesion: {0}",
+                        ex.getMessage());
 
+            }
+
+        }
     }
 
 }

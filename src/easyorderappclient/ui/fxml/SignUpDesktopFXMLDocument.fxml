@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane fx:id="gpSignUp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easyorderappclient.ui.controllers.SignUpDesktopFxmlController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="133.0" minWidth="0.0" percentWidth="5.0" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.0" minWidth="10.0" percentWidth="20.0" prefWidth="275.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="30.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="261.0" minWidth="10.0" percentWidth="20.0" prefWidth="261.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="0.0" percentWidth="2.0" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" percentWidth="15.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="40.0" minHeight="0.0" percentHeight="5.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="45.0" minHeight="5.0" percentHeight="5.0" prefHeight="45.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="3.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="316.0" text="Login:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <TextField fx:id="txtLogin" promptText="Introduce login" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="249.0" text="Email:" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+      <TextField fx:id="txtEmail" promptText="Introduce email" GridPane.columnIndex="5" GridPane.rowIndex="4">
+         <tooltip>
+            <Tooltip text="Example: team_3@mail.com" />
+         </tooltip></TextField>
+      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="231.0" text="Contraseña:" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+      <PasswordField fx:id="pwdPassword" promptText="Introduce contraseña" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+      <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="17.0" prefWidth="308.0" text="Confirmar contraseña:" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+      <PasswordField fx:id="pwdConfirmPassword" promptText="Confirma contraseña" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="260.0" text="Nombre:" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+      <TextField fx:id="txtFullname" promptText="Introduce nombre" GridPane.columnIndex="5" GridPane.rowIndex="10" />
+      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="300.0" text="Fecha de nacimiento:" GridPane.columnIndex="3" GridPane.rowIndex="12" />
+      <DatePicker fx:id="dtpFechaDeNacimiento" promptText="Cumpleaños" GridPane.columnIndex="5" GridPane.rowIndex="12" />
+      <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="295.0" text="Teléfono:" GridPane.columnIndex="3" GridPane.rowIndex="14" />
+      <TextField fx:id="txtTelefono" promptText="Introduce teléfono" GridPane.columnIndex="5" GridPane.rowIndex="14" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="16">
+         <children>
+            <Button fx:id="btnSignUp" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#handleSignUpAction" text="Darse de alta" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="23.0" prefWidth="229.0" spacing="2.0" GridPane.columnIndex="3" GridPane.columnSpan="4" GridPane.rowIndex="17">
+         <children>
+            <Hyperlink id="hpSignIn" fx:id="hpSignIn" minWidth="-Infinity" onAction="#handleSignInAction" prefHeight="23.0" prefWidth="50.0" text="Inicia sesión" wrapText="true">
+               <graphic>
+                  <Label minWidth="-Infinity" prefHeight="17.0" prefWidth="107.0" text="¿Ya tienes cuenta?" wrapText="true" />
+               </graphic>
+            </Hyperlink>
+         </children>
+      </HBox>
+      <Label fx:id="lblErrorFullname" text="* Are you sure you entered the name correctly?" textFill="RED" visible="false" wrapText="true" GridPane.columnIndex="6" GridPane.columnSpan="4" GridPane.rowIndex="10">
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+         <font>
+            <Font size="10.0" />
+         </font>
+         <padding>
+            <Insets bottom="-5.0" left="5.0" top="-5.0" />
+         </padding>
+      </Label>
+      <Label fx:id="lblErrorEmail" text="* Use a valid email." textFill="RED" visible="false" wrapText="true" GridPane.columnIndex="6" GridPane.columnSpan="4" GridPane.rowIndex="4">
+         <padding>
+            <Insets bottom="-5.0" left="5.0" top="-5.0" />
+         </padding>
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblErrorLogin" text="* That user login is already used. Try a new one." textFill="RED" visible="false" wrapText="true" GridPane.columnIndex="6" GridPane.columnSpan="4" GridPane.rowIndex="2">
+         <padding>
+            <Insets bottom="-5.0" left="5.0" top="-5.0" />
+         </padding>
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblErrorPassword" prefHeight="46.0" prefWidth="232.0" text="* Use a minimum of 8 characters with a combination of letters, numbers and symbols" textFill="RED" visible="false" wrapText="true" GridPane.columnIndex="6" GridPane.columnSpan="4" GridPane.rowIndex="6">
+         <padding>
+            <Insets bottom="-5.0" left="5.0" top="-5.0" />
+         </padding>
+         <font>
+            <Font size="10.0" />
+         </font>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </Label>
+   </children>
+</GridPane>

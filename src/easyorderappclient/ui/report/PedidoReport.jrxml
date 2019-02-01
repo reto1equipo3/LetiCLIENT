@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bb8bcdcc-9618-4233-b081-bc76dc13de16">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="codigo" class="java.lang.Number"/>
+	<field name="cliente.fullname" class="java.lang.String"/>
+	<field name="fechaTramitado" class="java.util.Date"/>
+	<field name="fechaPreparado" class="java.util.Date"/>
+	<field name="fechaEntregado" class="java.util.Date"/>
+	<field name="estado" class="easyorderappclient.transferObjects.EstadoPedido"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="181" y="16" width="274" height="42" uuid="6c108f2e-ceac-4e2a-8c79-8bcb0d0e3eb8"/>
+				<textElement>
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PEDIDO REPORT]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="56" height="20" uuid="259c978d-b124-48d9-be9f-41f4def766fa"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CÓDIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="56" y="0" width="62" height="20" uuid="ba46acca-6468-477a-b10a-24be3ade3b49"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CLIENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="0" width="100" height="20" uuid="b2ebdee6-413f-4670-b42a-f8e0101cd5bd"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[FECHA TRAMITADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="248" y="0" width="113" height="20" uuid="fcde309e-9366-458f-a34f-8a6de374b034"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[FECHA PREPARADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="372" y="0" width="124" height="20" uuid="9ec31cd5-32c2-497f-b96b-5351c748ce04"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[FECHA ENTREGADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="496" y="0" width="59" height="20" uuid="fcad8796-cdf3-4a13-8b9d-a364e8da5d4e"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="38" height="20" uuid="58503807-6c95-4e3f-9bf8-36eda4a519e3"/>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="0" width="62" height="20" uuid="42de4e24-35f8-45da-b3a7-e821621ff45e"/>
+				<textFieldExpression><![CDATA[$F{cliente.fullname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="132" y="0" width="100" height="20" uuid="acf5fed9-bd4b-42be-9f86-7fe0de421bbf"/>
+				<textFieldExpression><![CDATA[$F{fechaTramitado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="248" y="0" width="100" height="20" uuid="f50e457f-a927-4f63-98da-f6ab7df49b8c"/>
+				<textFieldExpression><![CDATA[$F{fechaPreparado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="372" y="0" width="100" height="20" uuid="551152bf-c15b-4542-ae1c-d72b2ed46b56"/>
+				<textFieldExpression><![CDATA[$F{fechaEntregado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="496" y="0" width="59" height="20" uuid="d9e68ac5-0ca0-44ab-91ff-b9e9cb7c40dd"/>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
